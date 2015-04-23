@@ -1,0 +1,7 @@
+# development dependencies
+wheel>=0.22
+setuptools-git
+tox
+
+# equivalent to ./setup develop
+-e .
