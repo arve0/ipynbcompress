@@ -19,6 +19,13 @@ pip install ipynbcompress
 ```
 
 ## Example
+From command line:
+```sh
+$ ipynb-compress notebook4.ipynb
+10 megabytes saved
+```
+
+In python:
 ```python
 >>> import os
 >>> from ipynbcompress import compress
