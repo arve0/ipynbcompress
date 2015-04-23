@@ -22,7 +22,26 @@ Install using ``pip``...
 Example
 -------
 
-TODO: Write example.
+.. code:: python
+
+    >>> import os
+    >>> from ipynbcompress import compress
+    >>> filename = '/path/to/notebook.ipynb'
+    >>> out = '/path/to/compressed.ipynb'
+    >>> # original size
+    ... os.stat(filename).st_size
+    11563736
+    >>> # returns bytes saved
+    ... compress(filename, img_width=800, img_format='jpeg', output_filename=out)
+    11451545
+    >>> compress(filename, img_width=800, img_format='png', output_filename=out)
+    11205762
+    >>> # defaults to img_width = 1024px and jpeg compression
+    ... compress(filename, output_filename=out)
+    11411377
+    >>> # overwrite existing notebook
+    ... compress(filename)
+    11411377
 
 API reference
 -------------
