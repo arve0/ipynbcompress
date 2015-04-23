@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+import climate
+from ipynbcompress import compress
+from hurry.filesize import size, verbose
+
+@climate.annotate(
+    img_width=('image width', 'option', 'w'),
+    img_format=('image compression; jpeg or png', 'option', 'f')
+)
+def main(filename, output_filename=None, img_width=1024, img_format='jpeg'):
+    """Compress images in IPython notebooks.
+
+    filename : Notebook to compress. Will take any notebook format.
+    output_filename : If you do not want to overwrite your existing notebook,
+        supply an filename for the new compressed notebook.
+    img_width : Which width images should be resized to.
+    img_format : Which compression to use on the images, valid options are
+        *png* and *jpeg* (**requires libjpeg**).
+    """
+    try:
+        saved = compress(filename, output_filename, img_width, img_format)
+        saved = size(saved, system=verbose)
+        print('%s saved' % saved)
+    except FileNotFoundError:
+        print('ipynb-compress: error: %s file not found' % filename)
+
+if __name__ == '__main__':
+    climate.call(main)

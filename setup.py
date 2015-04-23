@@ -24,11 +24,16 @@ setup(
     ],
     package_dir={'ipynbcompress': 'ipynbcompress'},
     package_data={'ipynbcompress': ['VERSION']},
+    scripts=[
+        'scripts/ipynb-compress'
+    ],
     include_package_data=True,
     install_requires=[
         'Pillow',
         'jsonschema',
-        'ipython'
+        'ipython',
+        'climate',
+        'hurry.filesize'
     ],
     license='MIT',
     zip_safe=False,
