@@ -55,9 +55,9 @@ def compress(filename, img_width=1024, img_format='jpeg', output_filename=None):
                 out = BytesIO()
                 img.save(out, img_format)
                 out.seek(0)
-                b64_img = b64encode(out.read())
+                mime = 'image/' + img_format
                 del data[key]
-                data['image/' + img_format] = _chunkstring(b64_img, 77)
+                data[mime] = b64encode(out.read()).decode('ascii')
 
     # save notebook
     if not output_filename:
@@ -73,8 +73,3 @@ def compress(filename, img_width=1024, img_format='jpeg', output_filename=None):
     if bytes_saved <= 0:
         print('Warning: ipynbcompress did not compress notebook, %s bytes gained' % bytes_saved)
     return bytes_saved
-
-
-def _chunkstring(string, length):
-    "Chops a string into chunks."
-    return [string[0+i:length+i] for i in range(0, len(string), length)]
