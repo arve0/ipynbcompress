@@ -23,7 +23,7 @@ def test_stitch(tmpdir, notebooks):
     "It should compress a notebook."
     for notebook in notebooks:
         outfile = tmpdir.join('out.ipynb')
-        saved = compress(notebook.strpath, 800, 'jpeg', outfile.strpath)
+        saved = compress(notebook.strpath, outfile.strpath, 800, 'jpeg')
 
         # it should not gain in size
         assert saved > 0
