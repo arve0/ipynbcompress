@@ -28,9 +28,9 @@ pip install ipynbcompress
 ... os.stat(filename).st_size
 11563736
 >>> # returns bytes saved
-... compress(filename, img_width=800, img_format='jpeg', output_filename=out)
+... compress(filename, output_filename=out, img_width=800, img_format='jpeg')
 11451545
->>> compress(filename, img_width=800, img_format='png', output_filename=out)
+>>> compress(filename, output_filename=out, img_width=800, img_format='png')
 11205762
 >>> # defaults to img_width = 1024px and jpeg compression
 ... compress(filename, output_filename=out)

@@ -6,21 +6,21 @@ from os import stat
 from IPython.nbformat import read, write
 
 
-def compress(filename, img_width=1024, img_format='jpeg', output_filename=None):
+def compress(filename, output_filename=None, img_width=1024, img_format='jpeg'):
     """Compress images in IPython notebooks.
 
     Parameters
     ----------
     filename : string
         Notebook to compress. Will take any notebook format.
+    output_filename : string
+        If you do not want to overwrite your existing notebook, supply an
+        filename for the new compressed notebook.
     img_width : int
         Which width images should be resized to.
     img_format : string
         Which compression to use on the images, valid options are
         *png* and *jpeg* (**requires libjpeg**).
-    output_filename : string
-        If you do not want to overwrite your existing notebook, supply an
-        filename for the new compressed notebook.
 
     Returns
     -------
