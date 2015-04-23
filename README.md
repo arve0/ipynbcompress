@@ -22,7 +22,7 @@ pip install ipynbcompress
 From command line:
 ```sh
 $ ipynb-compress notebook4.ipynb
-10 megabytes saved
+notebook4.ipynb: 10 megabytes decrease
 ```
 
 In python:
@@ -34,7 +34,7 @@ In python:
 >>> # original size
 ... os.stat(filename).st_size
 11563736
->>> # returns bytes saved
+>>> # return bytes saved
 ... compress(filename, output_filename=out, img_width=800, img_format='jpeg')
 11451545
 >>> compress(filename, output_filename=out, img_width=800, img_format='png')

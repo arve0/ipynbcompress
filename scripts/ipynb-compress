@@ -22,7 +22,11 @@ def main(filename, output_filename=None, img_width=1024, img_format='jpeg'):
     try:
         saved = compress(filename, output_filename, img_width, img_format)
         saved = size(saved, system=verbose)
-        print('%s saved' % saved)
+        if output_filename:
+            from_to = '%s->%s' % (filename, output_filename)
+        else:
+            from_to = filename
+        print('%s: %s decrease' % (from_to, saved))
     except FileNotFoundError:
         print('ipynb-compress: error: %s file not found' % filename)
 

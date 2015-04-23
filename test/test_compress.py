@@ -19,7 +19,7 @@ def notebooks(tmpdir):
     return notebooks.listdir()
 
 
-def test_stitch(tmpdir, notebooks):
+def test_compress(tmpdir, notebooks):
     "It should compress a notebook."
     for notebook in notebooks:
         outfile = tmpdir.join('out.ipynb')
