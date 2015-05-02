@@ -8,7 +8,12 @@ Overview
 
 So you have included an image with ``IPython.display.Image()`` and the
 file size of your IPython Notebook got huge? No problem! This package
-will resize images in your notebook and compress them as JPG or PNG.
+will resize images in your notebook and compress them as PNG or JPEG.
+Images are only resized if they are above the specified width. 2048px
+and PNG compression is the default, which should give relative high
+quality images and normal sized notebooks. JPEG compression is nice if
+you serve the notebooks over the web (eg nbviewer) and prefer fast
+loading times.
 
 Installation
 ------------
@@ -28,6 +33,11 @@ From command line:
 
     $ ipynb-compress notebook4.ipynb
     notebook4.ipynb: 10 megabytes decrease
+    $ find . -name "*ipynb" -size +2M -exec ipynb-compress {} \;
+    ./lab 03.21/automated scan.ipynb: warning: no compression - 0 bytes gained
+    ./lab 03.21/automated scan.ipynb: compression less than 100k bytes - keeping original
+    ./lab 03.21/trouble.ipynb: 9 megabytes decrease
+    ...
 
 In python:
 
@@ -45,7 +55,7 @@ In python:
     11451545
     >>> compress(filename, output_filename=out, img_width=800, img_format='png')
     11205762
-    >>> # defaults to img_width = 1024px and jpeg compression
+    >>> # defaults to img_width = 2048px and png compression
     ... compress(filename, output_filename=out)
     11411377
     >>> # overwrite existing notebook
