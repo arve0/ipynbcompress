@@ -4,12 +4,16 @@
 import climate
 from ipynbcompress import compress
 from hurry.filesize import size, verbose
+from tempfile import mkstemp
+from shutil import copyfile
+from os import close, remove
+from sys import exit
 
 @climate.annotate(
     img_width=('image width', 'option', 'w'),
-    img_format=('image compression; jpeg or png', 'option', 'f')
+    img_format=('image compression; png or jpeg', 'option', 'f')
 )
-def main(filename, output_filename=None, img_width=1024, img_format='jpeg'):
+def main(filename, output_filename=None, img_width=2048, img_format='png'):
     """Compress images in IPython notebooks.
 
     filename : Notebook to compress. Will take any notebook format.
@@ -19,14 +23,39 @@ def main(filename, output_filename=None, img_width=1024, img_format='jpeg'):
     img_format : Which compression to use on the images, valid options are
         *png* and *jpeg* (**requires libjpeg**).
     """
+    if img_format == 'jpg':
+        img_format = 'jpeg'
+    if img_format not in ('jpeg', 'png'):
+        print('ipynb-compress: error: format %s unknown' % img_format)
+        print('valid options are png and jpeg')
+        exit(1)
+
     try:
-        saved = compress(filename, output_filename, img_width, img_format)
-        saved = size(saved, system=verbose)
+        # write to temp file in case compression fails
+        temp_fd, temp_filename = mkstemp('.ipynb')
+        close(temp_fd)
+
+        saved = compress(filename, temp_filename, img_width, img_format)
+
         if output_filename:
             from_to = '%s->%s' % (filename, output_filename)
         else:
             from_to = filename
-        print('%s: %s decrease' % (from_to, saved))
+            output_filename = filename
+
+        if saved > 100000:
+            copyfile(temp_filename, output_filename)
+            saved = size(saved, system=verbose)
+            print('%s: %s decrease' % (from_to, saved))
+        else:
+            if filename == output_filename:
+                print('%s: compression less than 100k bytes - keeping original' % from_to)
+            else:
+                print('%s: compression less than 100k bytes - copying original' % from_to)
+                copyfile(filename, output_filename)
+
+        remove(temp_filename)
+
     except FileNotFoundError:
         print('ipynb-compress: error: %s file not found' % filename)
 

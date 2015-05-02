@@ -6,7 +6,7 @@ from os import stat
 from IPython.nbformat import read, write
 
 
-def compress(filename, output_filename=None, img_width=1024, img_format='jpeg'):
+def compress(filename, output_filename=None, img_width=2048, img_format='png'):
     """Compress images in IPython notebooks.
 
     Parameters
@@ -71,5 +71,5 @@ def compress(filename, output_filename=None, img_width=1024, img_format='jpeg'):
     # calculate bytes saved
     bytes_saved = orig_filesize - stat(output_filename).st_size
     if bytes_saved <= 0:
-        print('Warning: ipynbcompress did not compress notebook, %s bytes gained' % bytes_saved)
+        print('%s: warning: no compression - %s bytes gained' % (filename, -bytes_saved))
     return bytes_saved
