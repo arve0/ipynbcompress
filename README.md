@@ -84,6 +84,6 @@ make docs
 
 [build-status-image]: https://secure.travis-ci.org/arve0/ipynbcompress.png?branch=master
 [travis]: http://travis-ci.org/arve0/ipynbcompress?branch=master
-[pypi-version]: https://pypip.in/version/ipynbcompress/badge.svg
+[pypi-version]: https://img.shields.io/pypi/v/ipynbcompress.svg
 [pypi]: https://pypi.python.org/pypi/ipynbcompress
-[wheel]: https://pypip.in/wheel/ipynbcompress/badge.svg
+[wheel]: https://img.shields.io/pypi/wheel/ipynbcompress.svg
