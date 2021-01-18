@@ -40,7 +40,7 @@ def compress(filename, output_filename=None, img_width=2048, img_format='png'):
         data = output.get('data', {})
         if not data:
             continue
-        keys = data.keys()
+        keys = data.copy().keys()
         for key in keys:
             if 'image' in key:
                 string = ''.join(data[key])
