@@ -3,7 +3,7 @@ from base64 import b64decode, b64encode
 from PIL import Image
 from io import BytesIO
 from os import stat
-from IPython.nbformat import read, write
+from nbformat import read, write
 
 
 def compress(filename, output_filename=None, img_width=2048, img_format='png'):
@@ -53,6 +53,7 @@ def compress(filename, output_filename=None, img_width=2048, img_format='png'):
                     new_size = [int(s*factor+0.5) for s in img.size]
                     img = img.resize(new_size)
                 out = BytesIO()
+                img=img.convert("RGB")
                 img.save(out, img_format)
                 out.seek(0)
                 mime = 'image/' + img_format

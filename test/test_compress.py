@@ -3,7 +3,7 @@ Tests for `ipynbcompress`.
 """
 import pytest
 from ipynbcompress import *
-from IPython.nbformat import validate, read, NO_CONVERT
+from nbformat import validate, read, NO_CONVERT
 from py import path
 
 
