@@ -70,7 +70,7 @@ pip install -r requirements.txt # install dependencies and ipynbcompress-package
 
 ### Testing
 ```bash
-tox
+pytest
 ```
 
 ### Build documentation locally

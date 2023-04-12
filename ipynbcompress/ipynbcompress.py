@@ -53,7 +53,7 @@ def compress(filename, output_filename=None, img_width=2048, img_format='png'):
                     new_size = [int(s*factor+0.5) for s in img.size]
                     img = img.resize(new_size)
                 out = BytesIO()
-                img=img.convert("RGB")
+                img = img.convert("RGB")
                 img.save(out, img_format)
                 out.seek(0)
                 mime = 'image/' + img_format
@@ -72,5 +72,8 @@ def compress(filename, output_filename=None, img_width=2048, img_format='png'):
     # calculate bytes saved
     bytes_saved = orig_filesize - stat(output_filename).st_size
     if bytes_saved <= 0:
-        print('%s: warning: no compression - %s bytes gained' % (filename, -bytes_saved))
+        print(
+            '%s: warning: no compression - %s bytes gained'
+            % (filename, -bytes_saved)
+        )
     return bytes_saved

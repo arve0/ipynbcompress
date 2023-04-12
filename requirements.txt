@@ -1,7 +1,6 @@
 # development dependencies
 wheel>=0.22
 setuptools-git
-tox
 nbformat
 
 # equivalent to ./setup develop

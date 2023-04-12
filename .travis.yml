@@ -2,10 +2,9 @@ language: python
 
 python:
   - "3.8"
-  # - "2.7"
 
 # install link to package
-install: 
+install:
   - pip install -e .
 
 # run tests
