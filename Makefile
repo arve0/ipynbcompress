@@ -43,12 +43,12 @@ docs:
 	open docs/_build/html/index.html
 
 release: clean rst tag
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	python setup.py sdist bdist_wheel
+	twine upload dist/*
 	git push && git push --tags
 
 tag:
-	git tag v`cat ipynbcompress/VERSION`
+	git tag v`cat ipynbcompress/VERSION` || true
 
 rst:
 	pandoc --from=markdown --to=rst README.md -o README.rst
