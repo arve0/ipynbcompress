@@ -35,22 +35,22 @@ def main(filename, output_filename, img_width, img_format):
     Process the notebook FILENAME into OUTPUT_FILENAME. If an output name is not given
     the file is processed in place.
     """
-    if img_format == 'jpg':
-        img_format = 'jpeg'
-    if img_format not in ('jpeg', 'png'):
-        print('ipynb-compress: error: format %s unknown' % img_format)
-        print('valid options are png and jpeg')
+    if img_format == "jpg":
+        img_format = "jpeg"
+    if img_format not in ("jpeg", "png"):
+        print("ipynb-compress: error: format %s unknown" % img_format)
+        print("valid options are png and jpeg")
         exit(1)
 
     try:
         # write to temp file in case compression fails
-        temp_fd, temp_filename = mkstemp('.ipynb')
+        temp_fd, temp_filename = mkstemp(".ipynb")
         close(temp_fd)
 
         saved = compress(filename, temp_filename, img_width, img_format)
 
         if output_filename:
-            from_to = '%s->%s' % (filename, output_filename)
+            from_to = "%s->%s" % (filename, output_filename)
         else:
             from_to = filename
             output_filename = filename
