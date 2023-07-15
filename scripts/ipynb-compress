@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import climate
+import click
 from ipynbcompress import compress
 from hurry.filesize import size, verbose
 from tempfile import mkstemp
@@ -9,19 +9,31 @@ from shutil import copyfile
 from os import close, remove
 from sys import exit
 
-@climate.annotate(
-    img_width=('image width', 'option', 'w'),
-    img_format=('image compression; png or jpeg', 'option', 'f')
+
+@click.command()
+@click.argument("filename", type=click.Path(exists=True, dir_okay=False))
+@click.argument(
+    "output_filename", required=False, type=click.Path(dir_okay=False), default=None
 )
-def main(filename, output_filename=None, img_width=2048, img_format='png'):
+@click.option(
+    "-w",
+    "--img-width",
+    type=int,
+    default=2048,
+    help="Which width images should be resized to.",
+)
+@click.option(
+    "-f",
+    "--img-format",
+    type=click.Choice(["png", "jpeg"]),
+    default="png",
+    help="Which compression to use on the images, valid options are png or jpeg (required libjpeg).",
+)
+def main(filename, output_filename, img_width, img_format):
     """Compress images in IPython notebooks.
 
-    filename : Notebook to compress. Will take any notebook format.
-    output_filename : If you do not want to overwrite your existing notebook,
-        supply an filename for the new compressed notebook.
-    img_width : Which width images should be resized to.
-    img_format : Which compression to use on the images, valid options are
-        *png* and *jpeg* (**requires libjpeg**).
+    Process the notebook FILENAME into OUTPUT_FILENAME. If an output name is not given
+    the file is processed in place.
     """
     if img_format == 'jpg':
         img_format = 'jpeg'
@@ -46,18 +58,23 @@ def main(filename, output_filename=None, img_width=2048, img_format='png'):
         if saved > 100000:
             copyfile(temp_filename, output_filename)
             saved = size(saved, system=verbose)
-            print('%s: %s decrease' % (from_to, saved))
+            print("%s: %s decrease" % (from_to, saved))
         else:
             if filename == output_filename:
-                print('%s: compression less than 100k bytes - keeping original' % from_to)
+                print(
+                    "%s: compression less than 100k bytes - keeping original" % from_to
+                )
             else:
-                print('%s: compression less than 100k bytes - copying original' % from_to)
+                print(
+                    "%s: compression less than 100k bytes - copying original" % from_to
+                )
                 copyfile(filename, output_filename)
 
         remove(temp_filename)
 
     except FileNotFoundError:
-        print('ipynb-compress: error: %s file not found' % filename)
+        print("ipynb-compress: error: %s file not found" % filename)
 
-if __name__ == '__main__':
-    climate.call(main)
+
+if __name__ == "__main__":
+    main()
