@@ -1,6 +1,6 @@
 # ipynbcompress
 
-[![build-status-image]][travis]
+[![build-status-image]][ci]
 [![pypi-version]][pypi]
 [![wheel]][pypi]
 
@@ -82,8 +82,8 @@ make docs
 
 
 
-[build-status-image]: https://secure.travis-ci.org/arve0/ipynbcompress.png?branch=master
-[travis]: http://travis-ci.org/arve0/ipynbcompress?branch=master
+[build-status-image]: https://github.com/arve0/ipynbcompress/actions/workflows/main.yml/badge.svg
+[ci]: https://github.com/arve0/ipynbcompress/actions/workflows/main.yml
 [pypi-version]: https://img.shields.io/pypi/v/ipynbcompress.svg
 [pypi]: https://pypi.python.org/pypi/ipynbcompress
 [wheel]: https://img.shields.io/pypi/wheel/ipynbcompress.svg
